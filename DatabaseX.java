@@ -1,151 +1,157 @@
+/**
+ * @class DatabaseX
+ * @brief Main Class DatabaseX, its basically the holder for the entire app and where all the other functions are called from.
+ * @author Albert Corominas Mariscot
+ */
+
 import java.util.Scanner;
 import java.util.Vector;
 
 public class DatabaseX {
     public static void main(String[] args){
+
+        Printer p = new Printer();
         Vector<Table> tables = new Vector<>();
         Options o = new Options();
-        Printer p = new Printer();
+
         //loadDummyData(tables);
         loadOptions(o);
         loadTablesFromFiles(tables);
         Scanner sc = new Scanner(System.in);
-        printMainMenu();
-        int option = askForInt(sc,true,true,8,0);
+        printMainMenu(p);
+        int option = askForInt(p,sc,true,true,8,0);
         while(option!=0){
             switch(option) {
                 case 1:
-                    CreateTable(tables);
+                    CreateTable(p,tables);
                     break;
                 case 2:
-                    SelectTable(tables);
+                    SelectTable(p,tables);
                     break;
                 case 3:
-                    SelectTable(tables);
+                    SelectTable(p,tables);
                     break;
                 case 4:
-                    SelectTable(tables);
+                    SelectTable(p,tables);
                     break;
                 case 5:
-                    SelectTable(tables);
+                    SelectTable(p,tables);
                     break;
                 case 6:
                     if(o.getRollbackActions()) {
-                        RollbackLast(tables);
+                        RollbackLast(p,tables);
                     } else {
-                        System.out.println("<System> This option is currently disabled");
+                        p.println("This option is currently disabled");
                     }
                     break;
                 case 7:
-                    OptionsMenu(sc,o);
+                    OptionsMenu(p,sc,o);
                     break;
                 case 8:
-                    StatsMenu(tables);
+                    StatsMenu(p,tables);
                     break;
                 case 9:
-                    BriefingTables(tables);
+                    BriefingTables(p,tables);
                     break;
             }
-            option = askForInt(sc,true,true,8,0);
+            option = askForInt(p,sc,true,true,8,0);
         }
         saveTablesOnFiles(tables);
-        System.out.println("<Misc> END OF PROGRAM");
-        System.out.println("<System> Made by Albert Corominas Mariscot");
+        p.println("END OF PROGRAM");
+        p.println("Made by Albert Corominas Mariscot");
     }
 
-    public static void printMainMenu(){
-        System.out.println("{ 0 }: Exit Application");
-        System.out.println("{ 1 }: Create Table");
-        System.out.println("{ 2 }: Select Table");
-        System.out.println("{ 3 }: Remove Table");
-        System.out.println("{ 4 }: Create Registry");
-        System.out.println("{ 5 }: Remove Registry");
-        System.out.println("{ 6 }: Rollback Last Action");
-        System.out.println("{ 7 }: Options Menu");
-        System.out.println("{ 8 }: Stats Menu");
-        System.out.println("{ 9 }: Briefing of Tables");
+    public static void printMainMenu(Printer p){
+        p.println("{ 0 }: Exit Application");
+        p.println("{ 1 }: Create Table");
+        p.println("{ 2 }: Select Table");
+        p.println("{ 3 }: Remove Table");
+        p.println("{ 4 }: Create Registry");
+        p.println("{ 5 }: Remove Registry");
+        p.println("{ 6 }: Rollback Last Action");
+        p.println("{ 7 }: Options Menu");
+        p.println("{ 8 }: Stats Menu");
+        p.println("{ 9 }: Briefing of Tables");
     }
 
-    public static int askForInt(Scanner sc, boolean max, boolean min, int valMax, int valMin){
+    public static int askForInt(Printer p, Scanner sc, boolean max, boolean min, int valMax, int valMin){
         int aux;
         if(max && min){
-            System.out.println("<System> Enter a Integer number (between "+valMin+" and "+valMax+"):");
+            p.println("Enter a Integer number (between "+valMin+" and "+valMax+"):");
             aux = sc.nextInt();
             while(aux<valMin || aux>valMax){
-                System.out.println("<System> Enter a Integer number (between "+valMin+" and "+valMax+"):");
+                p.println("Enter a Integer number (between "+valMin+" and "+valMax+"):");
                 aux = sc.nextInt();
             }
         } else if(max){
-            System.out.println("<System> Enter a Integer number (maximum "+valMax+"):");
+            p.println("Enter a Integer number (maximum "+valMax+"):");
             aux = sc.nextInt();
             while(aux>valMax){
-                System.out.println("<System> Enter a Integer number (maximum "+valMax+"):");
+                p.println("Enter a Integer number (maximum "+valMax+"):");
                 aux = sc.nextInt();
             }
         } else {
-            System.out.println("<System> Enter a Integer number (minimum "+valMin+"):");
+            p.println("Enter a Integer number (minimum "+valMin+"):");
             aux = sc.nextInt();
             while(aux<valMin){
-                System.out.println("<System> Enter a Integer number (minimum "+valMin+"):");
+                p.println("Enter a Integer number (minimum "+valMin+"):");
                 aux = sc.nextInt();
             }
         }
         return aux;
     }
 
-    public static double askForDouble(Scanner sc, boolean max, boolean min, double valMax, double valMin){
+    public static double askForDouble(Printer p, Scanner sc, boolean max, boolean min, double valMax, double valMin){
         double aux;
         if(max && min){
-            System.out.println("<System> Enter a Double number (between "+valMin+" and "+valMax+"):");
+            p.println("Enter a Double number (between "+valMin+" and "+valMax+"):");
             aux = sc.nextInt();
             while(aux<valMin || aux>valMax){
-                System.out.println("<System> Enter a Double number (between "+valMin+" and "+valMax+"):");
+                p.println("Enter a Double number (between "+valMin+" and "+valMax+"):");
                 aux = sc.nextInt();
             }
         } else if(max){
-            System.out.println("<System> Enter a Double number (maximum "+valMax+"):");
+            p.println("Enter a Double number (maximum "+valMax+"):");
             aux = sc.nextInt();
             while(aux>valMax){
-                System.out.println("<System> Enter a Double number (maximum "+valMax+"):");
+                p.println("Enter a Double number (maximum "+valMax+"):");
                 aux = sc.nextInt();
             }
         } else {
-            System.out.println("<System> Enter a Double number (minimum "+valMin+"):");
+            p.println("Enter a Double number (minimum "+valMin+"):");
             aux = sc.nextInt();
             while(aux<valMin){
-                System.out.println("<System> Enter a Double number (minimum "+valMin+"):");
+                p.println("Enter a Double number (minimum "+valMin+"):");
                 aux = sc.nextInt();
             }
         }
         return aux;
     }
 
-    public static String askForString(Scanner sc, boolean limited, Vector<String> s){
+    public static String askForString(Printer p, Scanner sc, boolean limited, Vector<String> s){
         String aux = "";
         if(limited){
             while(!s.contains(aux)){
-                System.out.print("<System> Enter a String number from the list (");
+                System.out.print("Enter a String number from the list (");
                 for(int i = 0; i<s.size(); i++){
-                    System.out.print(s);
+                    p.print(s.elementAt(i));
                 }
-                System.out.println("):");
+                p.println("):");
                 aux = sc.nextLine();
             }
 
         } else {
-            System.out.print("<System> Enter a String number from the list (");
-            for(int i = 0; i<s.size(); i++){
-                System.out.print(s);
-            }
-            System.out.println("):");
+            p.println("Enter a String:");
+            aux = sc.nextLine();
         }
         return aux;
     }
 
-    public static void loadDummyData(Vector<Table> tables){
-        System.out.print("<System> Dummy data is being loaded on the system ...");
+    public static void loadDummyData(Printer p, Vector<Table> tables){
+        p.println("Dummy data is being loaded on the system ...");
 
-        System.out.print("<System> Data load complete!");
+
+        p.println("Data load complete!");
     }
 
     public static void saveTablesOnFiles(Vector<Table> tables){
@@ -160,29 +166,33 @@ public class DatabaseX {
 
     }
 
-    public static void OptionsMenu(Scanner sc, Options o){
-        o.displayOptions();
-        System.out.println("<System> Would you like to change any option? (0 none) (1-6 options)");
-        int option = askForInt(sc,true,true,6,0);
-        while(option != 0) {
+    public static void OptionsMenu(Printer p, Scanner sc, Options o){
+        printOptionsMenu(p);
+        int option = askForInt(p,sc,true,true,3,0);
+        int n;
+        while(option!=0) {
             switch (option) {
                 case 1:
-                    o.setDynamicLoad();
+                    o.displayOptions();
                     break;
                 case 2:
-                    o.setDynamicSave();
+                    n = askForInt(p,sc,true,true,o.getSize(),1);
+                    o.infoOption(n);
                     break;
                 case 3:
-                    break;
-                case 4:
-                    break;
-                case 5:
-                    break;
-                case 6:
+                    n = askForInt(p,sc,true,true,o.getSize(),1);
+                    o.setOption(n);
                     break;
             }
-            System.out.println("<System> Would you like to change any option? (0 none) (1-6 options)");
-            option = askForInt(sc, true, true, 6, 0);
+            printOptionsMenu(p);
+            option = askForInt(p,sc,true,true,3,0);
         }
+    }
+
+    public static void printOptionsMenu(Printer p) {
+        p.println("{ 0 }: Exit Menu");
+        p.println("{ 1 }: Display Number Options");
+        p.println("{ 2 }: Display Info Options");
+        p.println("{ 3 }: Modify Options");
     }
 }
