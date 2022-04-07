@@ -1,2 +1,2 @@
 # DatabaseX
-DatabaseX is a proof of concept a Database system with caches and automatics displacement. Updates will be published when progress is done.
+DatabaseX is a heavy modular program that recreates a database management system and includes custom made cacheing systems, dynamic load of tables and dynamic store of tables. You can find more info about it and progress tracking in the repository.
