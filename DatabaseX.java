@@ -12,14 +12,16 @@ public class DatabaseX {
 
         Printer p = new Printer();
         Vector<Table> tables = new Vector<>();
-        Options o = new Options();
+        Options o = new Options(p);
+        SyntaxChecker s = new SyntaxChecker(p);
 
         //loadDummyData(tables);
         loadOptions(o);
         loadTablesFromFiles(tables);
         Scanner sc = new Scanner(System.in);
+        printWelcome(p);
         printMainMenu(p);
-        int option = askForInt(p,sc,true,true,8,0);
+        String option = askForString();
         while(option!=0){
             switch(option) {
                 case 1:
@@ -29,20 +31,16 @@ public class DatabaseX {
                     SelectTable(p,tables);
                     break;
                 case 3:
-                    SelectTable(p,tables);
+                    RemoveTable(p,tables);
                     break;
                 case 4:
-                    SelectTable(p,tables);
+                    CreateRegister(p,tables);
                     break;
                 case 5:
-                    SelectTable(p,tables);
+                    RemoveRegister(p,tables);
                     break;
                 case 6:
-                    if(o.getRollbackActions()) {
-                        RollbackLast(p,tables);
-                    } else {
-                        p.println("This option is currently disabled");
-                    }
+                    RollbackLast(p,tables,o);
                     break;
                 case 7:
                     OptionsMenu(p,sc,o);
@@ -51,7 +49,7 @@ public class DatabaseX {
                     StatsMenu(p,tables);
                     break;
                 case 9:
-                    BriefingTables(p,tables);
+                    StatsTables(p,tables);
                     break;
             }
             option = askForInt(p,sc,true,true,8,0);
@@ -61,13 +59,58 @@ public class DatabaseX {
         p.println("Made by Albert Corominas Mariscot");
     }
 
+    /**
+     @brief Empty constructor for the options of the program
+     @param p           Printer that will be used to print info about the options
+     @return Returns Options Object.
+     */
+    public static void CreateTable(Printer p, Vector<Table> tables){
+
+    }
+
+    public static void SelectTable(Printer p, Vector<Table> tables){
+
+    }
+
+    public static void RemoveTable(Printer p, Vector<Table> tables){
+
+    }
+
+    public static void CreateRegister(Printer p, Vector<Table> tables){
+
+    }
+
+    public static void RemoveRegister(Printer p, Vector<Table> tables){
+
+    }
+
+    public static void RollbackLast(Printer p, Vector<Table> tables, Options o){
+        if(o.getRollbackFunction()) {
+
+        } else {
+            p.println("This option is currently disabled");
+        }
+    }
+
+    public static void StatsMenu(Printer p, Vector<Table> tables){
+
+    }
+
+    public static void StatsTables(Printer p, Vector<Table> tables){
+
+    }
+
+    public static void printWelcome(Printer p){
+        p.println("Welcome user");
+    }
+
     public static void printMainMenu(Printer p){
         p.println("{ 0 }: Exit Application");
         p.println("{ 1 }: Create Table");
         p.println("{ 2 }: Select Table");
         p.println("{ 3 }: Remove Table");
-        p.println("{ 4 }: Create Registry");
-        p.println("{ 5 }: Remove Registry");
+        p.println("{ 4 }: Create Register");
+        p.println("{ 5 }: Remove Register");
         p.println("{ 6 }: Rollback Last Action");
         p.println("{ 7 }: Options Menu");
         p.println("{ 8 }: Stats Menu");

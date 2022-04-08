@@ -1,0 +1,12 @@
+<18:54:29> Welcome user
+<18:54:29> { 0 }: Exit Application
+<18:54:29> { 1 }: Create Table
+<18:54:29> { 2 }: Select Table
+<18:54:29> { 3 }: Remove Table
+<18:54:29> { 4 }: Create Register
+<18:54:29> { 5 }: Remove Register
+<18:54:29> { 6 }: Rollback Last Action
+<18:54:29> { 7 }: Options Menu
+<18:54:29> { 8 }: Stats Menu
+<18:54:29> { 9 }: Briefing of Tables
+<18:54:29> Enter a Integer number (between 0 and 8):

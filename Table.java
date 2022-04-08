@@ -71,6 +71,7 @@ public class Table {
     public boolean addEntry(Entry e){
 
         table_size++;
+        return true;
     }
 
     /**
@@ -80,7 +81,7 @@ public class Table {
      */
     public boolean deleteEntry(Entry e){
 
-
+        return true;
     }
 
     /**
@@ -90,7 +91,7 @@ public class Table {
      */
     public boolean editEntry(Entry e){
 
-
+        return true;
     }
 
     /**
@@ -99,7 +100,7 @@ public class Table {
      @post True if the entry exists in the table, false otherwise
      */
     public Entry existEntry(Entry e){
-
+        return e;
     }
 
     /**
@@ -108,7 +109,7 @@ public class Table {
      @post True if the entry exists in the table, false otherwise
      */
     public Entry existEntry(String key){
-
+        return new Entry(new Vector<>(),"test");
     }
 
     /**
@@ -120,6 +121,7 @@ public class Table {
         for(int i=0; i<table_fields.size(); i++){
 
         }
+        return true;
     }
 
     /**
@@ -128,7 +130,7 @@ public class Table {
      @post True if field has been succesfully delete from the table, false otherwise
      */
     public boolean deleteField(String field){
-
+        return true;
     }
 
     /**
@@ -137,7 +139,7 @@ public class Table {
      @post True if field has been succesfully edited from the table, false otherwise
      */
     public boolean editField(String field){
-
+        return true;
     }
 
     /**
@@ -146,7 +148,7 @@ public class Table {
      @post True if field exists in the table, false otherwise
      */
     public boolean existField(String field){
-
+        return true;
     }
 
     /**
